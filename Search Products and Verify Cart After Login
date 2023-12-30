@@ -1,0 +1,75 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SearchAndVerifyCartTest {
+    public static void main(String[] args) {
+        // Set the path to your ChromeDriver executable
+        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver.exe");
+
+        // Instantiate ChromeDriver
+        WebDriver driver = new ChromeDriver();
+
+        // Navigate to the website
+        driver.get("https://automationexercise.com/");
+
+        // Locate the search input box and enter the desired search keyword
+        WebElement searchInput = driver.findElement(By.id("woocommerce-product-search-field-0"));
+        searchInput.sendKeys("Product Name");
+
+        // Submit the search form
+        searchInput.submit();
+
+        // Verify that the search results page is displayed
+        String expectedTitle = "Search Results";
+        String actualTitle = driver.getTitle();
+
+        if (actualTitle.equals(expectedTitle)) {
+            System.out.println("Successfully displayed search results page.");
+        } else {
+            System.out.println("Failed to display search results page.");
+        }
+
+        // Optionally, retrieve the list of products on the search results page
+        // List<WebElement> productList = driver.findElements(By.xpath("//div[@class='product-item']"));
+
+        // Perform any necessary actions on the products
+
+        // Optionally, click on a product to view its details
+
+        // Close the product details page and go back to the search results page
+        driver.navigate().back();
+
+        // Add a product to the cart
+        WebElement addToCartButton = driver.findElement(By.xpath("//a[@class='add_to_cart_button']"));
+        addToCartButton.click();
+
+        // Optionally, verify that the product has been added to the cart
+
+        // Navigate to the login page
+        WebElement loginLink = driver.findElement(By.linkText("Login"));
+        loginLink.click();
+
+        // Enter the login credentials
+        WebElement usernameInput = driver.findElement(By.id("username"));
+        WebElement passwordInput = driver.findElement(By.id("password"));
+
+        usernameInput.sendKeys("your_username");
+        passwordInput.sendKeys("your_password");
+
+        // Submit the login form
+        passwordInput.submit();
+
+        // Verify that the user is logged in
+
+        // Navigate to the cart page
+        WebElement cartLink = driver.findElement(By.xpath("//a[@class='cart-contents']"));
+        cartLink.click();
+
+        // Verify that the correct product is in the cart
+
+        // Close the browser
+        driver.quit();
+    }
+}
